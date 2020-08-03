@@ -1,10 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
-INDEED_URL = "https://ca.indeed.com/jobs?q=Junior+Developer+-senior%2C+-sr&l=Vancouver%2C+BC&limit=50&radius=25"
+LIMIT = 50
+URL = f"https://ca.indeed.com/jobs?q=Junior+Developer+-senior%2C+-sr&l=Vancouver%2C+BC&limit={LIMIT}&radius=25"
 
 def extract_pages():
-    r = requests.get(INDEED_URL)
+    r = requests.get(URL)
 
     soup = BeautifulSoup(r.text, "html.parser")
     pagination = soup.find("div", {"class": "pagination"})
@@ -17,3 +18,7 @@ def extract_pages():
 
     max_page = pages[-1]
     return max_page
+
+def extract_jobs(last_page):
+    for page in range(last_page):
+        print(f"&start={page*LIMIT}")
