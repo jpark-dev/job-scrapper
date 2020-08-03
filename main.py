@@ -1,20 +1,8 @@
-import requests
-from bs4 import BeautifulSoup
+from indeed import extract_pages
 
-target_url = "https://ca.indeed.com/jobs?q=Junior+Developer+-senior%2C+-sr&l=Vancouver%2C+BC&limit=50&radius=25"
+max_indeed_pages = extract_pages()
 
-r = requests.get(target_url)
+print(max_indeed_pages)
 
-soup = BeautifulSoup(r.text, "html.parser")
-
-pagination = soup.find("div", {"class": "pagination"})
-
-links = pagination.find_all("a")
-pages = []
-
-for link in links[:-1]:
-    pages.append(int(link.string))
-
-max_page = pages[-1]
-
-print(max_page)
+# for n in range(max_page):
+#     print(f"start={n * 50}")
