@@ -9,11 +9,12 @@ soup = BeautifulSoup(r.text, "html.parser")
 
 pagination = soup.find("div", {"class": "pagination"})
 
-pages = pagination.find_all("a")
+links = pagination.find_all("a")
+pages = []
 
-spans = []
+for link in links[:-1]:
+    pages.append(int(link.string))
 
-for page in pages:
-    spans.append(page.find("span"))
+max_page = pages[-1]
 
-print(spans[:-1])  
+print(max_page)
