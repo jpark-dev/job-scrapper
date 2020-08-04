@@ -23,7 +23,6 @@ def extract_job(html):
     title = html.find("h2", {"class":"title"}).find("a")["title"]
     company = html.find("span", {"class":"company"})
     company_anchor = company.find("a")
-    location = html.find("div", {"class":"recJobLoc"})["data-rc-loc"]
     
     if company_anchor is not None:
         target_text = company_anchor
@@ -32,7 +31,15 @@ def extract_job(html):
 
     company = str(target_text.string).strip()
 
-    return {'title':title, 'company':company, 'location':location}
+    location = html.find("div", {"class":"recJobLoc"})["data-rc-loc"]
+    job_id = html["data-jk"]
+
+    return {
+        'title': title, 
+        'company': company, 
+        'location': location,
+        'link': f"https://ca.indeed.com/viewjob?jk={job_id}" 
+        }
 
 def extract_indeed_jobs(last_page):
     jobs = []
