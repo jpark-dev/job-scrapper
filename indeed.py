@@ -30,5 +30,16 @@ def extract_jobs(last_page):
 
     for result in results:
         title = result.find("h2", {"class":"title"}).find("a")["title"]
-        print(title)
+        company = result.find("span", {"class":"company"})
+
+        company_anchor = company.find("a")
+        
+        if company_anchor is not None:
+            target_text = company_anchor
+        else:
+            target_text = company
+
+        company = str(target_text.string).strip()
+
+        print(f"{title} ||| {company}")
     return jobs
