@@ -4,7 +4,7 @@ last_indeed_pages = extract_pages()
 
 indeed_jobs = extract_indeed_jobs(last_indeed_pages)
 
-print(indeed_jobs)
 
-# for n in range(max_page):
-#     print(f"start={n * 50}")
+print(indeed_jobs)
+print()
+print(f"Scrapper Done! Scraped {len(indeed_jobs)} jobs. Great job, Jason!")

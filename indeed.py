@@ -38,19 +38,21 @@ def extract_job(html):
         'title': title, 
         'company': company, 
         'location': location,
-        'link': f"https://ca.indeed.com/viewjob?jk={job_id}" 
+        'link': f"https://ca.indeed.com/viewjob?jk={job_id}&from=web&vjs=3" 
         }
 
 def extract_indeed_jobs(last_page):
     jobs = []
+    for page in range(last_page):
+        print(f"===== Scrapper In Progress =====, page: {page}")
 
-    # for page in range(last_page):
-    # r = requests.get(f"{URL}&start={page*LIMIT}")
-    r = requests.get(f"{URL}&start={0*LIMIT}")
-    soup = BeautifulSoup(r.text, "html.parser")
-    results = soup.find_all("div", {"class":"jobsearch-SerpJobCard"})
+        r = requests.get(f"{URL}&start={page*LIMIT}")
+        soup = BeautifulSoup(r.text, "html.parser")
+        results = soup.find_all("div", {"class":"jobsearch-SerpJobCard"})
 
-    for result in results:
-        job = extract_job(result)
-        jobs.append(job)
+        for result in results:
+            job = extract_job(result)
+            print(f"{len(jobs)}: {job}")
+            jobs.append(job)
+
     return jobs
