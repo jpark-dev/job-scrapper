@@ -1,8 +1,7 @@
-from indeed import extract_pages
+from indeed import get_jobs as get_indeed_jobs
 
-max_indeed_pages = extract_pages()
+indeed_jobs = get_indeed_jobs()
 
-print(max_indeed_pages)
+print(indeed_jobs)
 
-# for n in range(max_page):
-#     print(f"start={n * 50}")
+print(f"Scrapper Done! Scraped {len(indeed_jobs)} jobs. Great job, Jason!")
