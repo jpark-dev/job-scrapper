@@ -22,14 +22,16 @@ def get_last_page():
 def extract_data(html):
     title = html.find("h2", {"class":"title"}).find("a")["title"]
     company = html.find("span", {"class":"company"})
-    company_anchor = company.find("a")
-    
-    if company_anchor is not None:
-        target_text = company_anchor
-    else:
-        target_text = company
+    if company:
+        company_anchor = company.find("a")
+        if company_anchor is not None:
+            target_text = company_anchor
+        else:
+            target_text = company
 
-    company = str(target_text.string).strip()
+        company = str(target_text.string).strip()
+    else:
+        company = None
 
     location = html.find("div", {"class":"recJobLoc"})["data-rc-loc"]
     job_id = html["data-jk"]
@@ -38,7 +40,7 @@ def extract_data(html):
         'title': title, 
         'company': company, 
         'location': location,
-        'link': f"https://ca.indeed.com/viewjob?jk={job_id}&from=web&vjs=3" 
+        'link': f"https://ca.indeed.com/viewjob?jk={job_id}"
         }
 
 def extract_jobs(last_page):
