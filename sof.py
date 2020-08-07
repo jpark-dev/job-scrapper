@@ -13,15 +13,22 @@ def get_last_page():
     last_page = pages[-2].get_text(strip=True)
     return int(last_page)
 
+def extract_job(html):
+    title = html.find("h2", {"class":"fs-body3"}).find("a")["title"]
+
+    print(title)
+
 def extract_jobs(last_page):
     jobs = []
     for page in range(last_page):
         r = requests.get(f"{URL}&pg={page+1}")
-        print(r.status_code)
+        # print(r.status_code)
         soup = BeautifulSoup(r.text, "html.parser")
         results = soup.find_all("div", {"class":"-job"})
         for result in results:
-            print(result["data-jobid"])
+            job = extract_job(result)
+            jobs.append(job)
+    return jobs
 
 
 def get_jobs():
