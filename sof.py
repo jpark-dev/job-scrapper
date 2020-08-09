@@ -23,13 +23,13 @@ def extract_job(html):
 def extract_jobs(last_page):
     jobs = []
     for page in range(last_page):
+        print(f"======== Scrapping from Stack Overflow: PG: {page+1} ========")
         r = requests.get(f"{URL}&pg={page+1}")
         # print(r.status_code)
         soup = BeautifulSoup(r.text, "html.parser")
         results = soup.find_all("div", {"class":"-job"})
         for result in results:
             job = extract_job(result)
-            print(job)
             jobs.append(job)
     return jobs
 

@@ -46,7 +46,7 @@ def extract_data(html):
 def extract_jobs(last_page):
     jobs = []
     for page in range(last_page):
-        print(f"===== Scrapper In Progress =====, page: {page}")
+        print(f"======== Scrapping from Indeed: PG: {page} ========")
 
         r = requests.get(f"{URL}&start={page*LIMIT}")
         soup = BeautifulSoup(r.text, "html.parser")
