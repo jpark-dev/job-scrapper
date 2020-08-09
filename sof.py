@@ -16,10 +16,9 @@ def get_last_page():
 def extract_job(html):
     title = html.find("h2", {"class":"fs-body3"}).find("a")["title"]
     company, location = html.find("h3", {"class":"fs-body1"}).find_all("span")
-    # company = company_info[0].get_text(strip=True)
-    # location = company_info[1].get_text(strip=True)
-
-    print(title, company.get_text(strip=True), location.get_text(strip=True))
+    # print(title, company.get_text(strip=True), location.get_text(strip=True))
+    job_id = html['data-jobid']
+    return {'title':title, 'company': company.get_text(strip=True), 'location': location.get_text(strip=True), 'apply_link': f"https://stackoverflow.com/jobs?id={job_id}"}
 
 def extract_jobs(last_page):
     jobs = []
@@ -30,6 +29,7 @@ def extract_jobs(last_page):
         results = soup.find_all("div", {"class":"-job"})
         for result in results:
             job = extract_job(result)
+            print(job)
             jobs.append(job)
     return jobs
 
