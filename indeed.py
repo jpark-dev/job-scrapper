@@ -9,7 +9,6 @@ def get_last_page():
 
     soup = BeautifulSoup(r.text, "html.parser")
     pagination = soup.find("div", {"class": "pagination"})
-
     links = pagination.find_all("a")
     pages = []
 
@@ -56,12 +55,10 @@ def extract_jobs(last_page):
             job = extract_data(result)
             print(f"{len(jobs)}: {job}")
             jobs.append(job)
-
+            
     return jobs
-
 
 def get_jobs():
     last_page = get_last_page()
     jobs = extract_jobs(last_page)
     return jobs
-
