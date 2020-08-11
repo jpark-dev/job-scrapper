@@ -54,7 +54,6 @@ def extract_jobs(last_page):
 
         for result in results:
             job = extract_data(result)
-            print(f"{len(jobs)}: {job}")
             jobs.append(job)
 
     return jobs
@@ -64,4 +63,3 @@ def get_jobs():
     last_page = get_last_page()
     jobs = extract_jobs(last_page)
     return jobs
-
