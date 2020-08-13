@@ -14,12 +14,12 @@ def report():
     word = request.args.get("word")
     if word:
         word = word.lower()
-        fromDb = db.get(word)
-        if fromDb:
-            jobs = fromDb
+        job_exists = db.get(word)
+        if job_exists:
+            jobs = job_exists
         else:
             jobs = get_jobs(word)
             db[word] = jobs
     else:
         return redirect("/")
-    return render_template("report.html", searchWord=word, jobCnt=len(jobs))
+    return render_template("report.html", searchWord=word, jobCnt=len(jobs), jobs=jobs)
