@@ -14,4 +14,3 @@ Front-end
 # Back-end
 * Flask
 * Python
-* Django
